@@ -25,14 +25,14 @@ dependencies {
 
     providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
  
- 	//Web
+    //Web
     compile 'javax.servlet:jstl:1.2'
     
     //MySql
     compile 'mysql:mysql-connector-java:5.1.36'
     
- 	//DBCP
- 	compile 'commons-dbcp:commons-dbcp:1.4'
+    //DBCP
+    compile 'commons-dbcp:commons-dbcp:1.4'
     
     //Mybatis
     compile 'org.mybatis:mybatis:3.3.0'
@@ -60,7 +60,7 @@ dependencies {
     //Gson
     compile 'com.google.code.gson:gson:2.3.1'
 
-	//Logging
+    //Logging
     compile 'org.slf4j:slf4j-api:1.7.12' //slf4j *
     compile 'org.slf4j:jcl-over-slf4j:1.7.12' // JCL(Jakarta Commons Logging) 유지 시, commons-logging.jar를 jcl-over-slf4j.jar로 대체
     compile 'org.slf4j:jul-to-slf4j:1.7.12' // JUL(java util logging) 
@@ -73,34 +73,34 @@ dependencies {
     
     compile 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16' 
   
-  	//Mail
-  	compile 'javax.mail:mail:1.4.7'
+    //Mail
+    compile 'javax.mail:mail:1.4.7'
   	
-  	//Velocity
-  	compile 'org.apache.velocity:velocity:1.7' // Template Engines
-  	compile 'org.apache.velocity:velocity-tools:2.0'
+    //Velocity
+    compile 'org.apache.velocity:velocity:1.7' // Template Engines
+    compile 'org.apache.velocity:velocity-tools:2.0'
   	
   	
-  	//WebSocket
-  	compile 'org.springframework:spring-websocket:4.2.5.RELEASE'
+    //WebSocket
+    compile 'org.springframework:spring-websocket:4.2.5.RELEASE'
   	
-  	//Spring Messaging
-  	compile 'org.springframework:spring-messaging:4.2.5.RELEASE'
-  	compile 'io.projectreactor:reactor-core:2.0.7.RELEASE'
-  	compile 'io.projectreactor:reactor-net:2.0.7.RELEASE'
-  	compile 'io.netty:netty-all:4.0.34.Final' 
-  	compile 'com.fasterxml.jackson.core:jackson-databind:2.6.5'
+    //Spring Messaging
+    compile 'org.springframework:spring-messaging:4.2.5.RELEASE'
+    compile 'io.projectreactor:reactor-core:2.0.7.RELEASE'
+    compile 'io.projectreactor:reactor-net:2.0.7.RELEASE'
+    compile 'io.netty:netty-all:4.0.34.Final' 
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.6.5'
 
-	//Spring JMS
-	/*compile 'org.springframework:spring-jms:4.2.1.RELEASE'*/
+    //Spring JMS
+    /*compile 'org.springframework:spring-jms:4.2.1.RELEASE'*/
 	
 
-  	//ActiveMQ
-  	//compile 'org.apache.activemq:activemq-spring:5.13.1'
+    //ActiveMQ
+    //compile 'org.apache.activemq:activemq-spring:5.13.1'
   	
   	
-  	//Naver Lucy Xss Servlet Filter
-  	compile 'com.navercorp.lucy:lucy-xss-servlet:2.0.0'
+    //Naver Lucy Xss Servlet Filter
+    compile 'com.navercorp.lucy:lucy-xss-servlet:2.0.0'
   	
 
 
