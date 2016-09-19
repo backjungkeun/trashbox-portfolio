@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+<mapper namespace="com.trashbox.dao.RoleDao">
+  <resultMap type="Role" id="RoleMap">
+    <id     column="no"                    property="no"/>
+    <result column="name"                  property="name"/>	 
+  </resultMap>
+  
+  <!-- ADMIN = 1, USER = 2, GUEST = 3 -->
+ 
+	
+	<insert id="addDefaultRole" parameterType="int"> 
+	  INSERT INTO user_role (user_no, role_no) VALUES (#{value}, '2');
+	</insert>
+	
+	<select id="getRoles" parameterType="int" resultMap="RoleMap">
+	  SELECT role.no, role.name
+	  
+	  FROM user_role
+	       LEFT OUTER JOIN role ON user_role.role_no=role.no 
+          
+      WHERE user_role.user_no=#{no};
+	</select>
+	
+</mapper>
+
+
+
+

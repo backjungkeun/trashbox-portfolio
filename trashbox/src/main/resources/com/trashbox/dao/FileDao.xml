@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.trashbox.dao.FileDao">
+<!--   <resultMap type="FileInfo" id="FileMap"> -->
+<!--     <id 	column="no" property="no"/> -->
+<!--     <result column="article_no" property="articleNo"/> -->
+<!--     <result column="user_no" property="userNo"/> -->
+<!--     <result column="content" property="content"/> -->
+<!--     <result column="registration_date" property="registrationDate"/> -->
+<!--   </resultMap> -->
+  <resultMap type="AttachFile" id="FileMap">
+    <id     column="no"           property="no"/>
+    <result column="article_no"   property="articleNo"/>
+    <result column="origin_name"  property="originName"/>
+    <result column="save_name"    property="saveName"/>
+    <result column="size"         property="size"/>
+    <result column="type"         property="type"/>
+  </resultMap>
+  
+  <select id="selectList" parameterType="int" resultMap="FileMap">
+       SELECT file.no, 
+              file.article_no, 
+              file.origin_name, 
+              file.save_name, 
+              file.size, 
+              file.type
+       
+       FROM   file 
+       
+       WHERE  article_no=#{no};
+  </select>
+ 
+  <insert id="insert" parameterType="Map" > 
+	   INSERT INTO file (article_no, origin_name, save_name, size, type) 
+	   VALUES (#{no}, #{name}, #{saveName}, #{size}, #{type});
+  </insert>
+  
+  <delete id="delete" parameterType="int" > 
+	  DELETE FROM file WHERE no=#{no};
+  </delete>
+  
+  
+  <select id="hasFile" parameterType="int" resultType="boolean">
+      SELECT (CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END) 
+      FROM file 
+      WHERE article_no=#{articleNo};
+  </select>
+  
+  
+
+</mapper>
+
+
+
+

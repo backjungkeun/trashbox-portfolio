@@ -1,0 +1,202 @@
+(function ($) {
+	$(function () {
+		
+		function getMetaContent(nameValue) {
+			return $("meta[name=" + nameValue + "]").attr("content");
+		}
+		
+		var boardTypeName = getMetaContent('boardTypeName'),
+		    articleNo = getMetaContent('articleNo'),
+		    token = getMetaContent('_csrf'),
+            header = getMetaContent('_csrf_header');
+      
+		
+		var clickUserNo = 0;
+    	var clickUserNickname = '';
+    	
+    	
+//    	$('a.author:not(.info > a.author)')
+//    	  .popup({
+//    		inline: true,
+//    		position : 'bottom left',
+////    	    popup : $('.custom.popup'),
+//    	    on    : 'click',
+//    	    onShow : function(element) {
+//    	    	clickUserNo = $(element).attr('data-no');
+//    	    	clickUserNickname = $(element).text();
+//    	    	
+//    	    	console.log(clickUserNo);
+//    	    	console.log(clickUserNickname);
+//    	    	
+//    	    }
+//    	  })
+//    	;
+    	
+//    	$('.info > a.author')
+//    	 .popup({
+//    		position : 'bottom left',
+//    		popup : $('.article.author.popup'),
+//    		on    : 'click',
+//    		onShow : function(element) {
+//    			clickUserNo = $(element).attr('data-no');
+//     	    	clickUserNickname = $(element).text();
+//     	    	
+//    		}
+//    	 });
+//		
+//    	$('a.author')
+//   	 .popup({
+//   		position : 'bottom left',
+//   		popup : $('.popup'),
+//   		on    : 'click',
+//   		onShow : function(element) {
+//   			clickUserNo = $(element).attr('data-no');
+//    	    	clickUserNickname = $(element).text();
+//    	    	
+//   		}
+//   	 });		
+//    	
+    	$('#user-click-modal')
+    	  .modal({
+    		  closable  : false ,
+    		  onApprove : function() {
+//    			 $('#message-send-form').submit();
+    			  console.log("user-click-modal");
+    			  
+    		  }
+//    		  onDeny : messageFormClear,
+//    		  onHide : messageFormClear
+    	  })
+    	  .modal('attach events', 'a.author', 'show');
+    	
+    	// 유저 닉네임 클릭 시에 모달에 넘버값 넣어주기
+    	$('a.author').on('click', function(){
+    		var no = $(this).attr('data-no'),
+    		    nickname = $(this).text();
+    		
+    		$('#user-click-modal .header').text(nickname);
+    		
+    		$('#user-click-modal .content .list .item').each(function() {
+    			$(this).attr({
+    				'data-no': no,
+    				'data-nick': nickname
+    			});
+    	        
+    		});
+    		
+//    		$('#user-click-modal').attr('data-no', no);
+    		
+    	});
+    	
+    	
+    	$('#send-message-modal')
+    	  .modal({
+    		  closable  : false ,
+    		  onApprove : function() {
+    			 $('#message-send-form').submit();
+    		  },
+    		  onDeny : messageFormClear,
+    		  onHide : messageFormClear
+    	  })
+    	  .modal('attach events', '.show-message-modal', 'show');
+   	 
+    	// 메시지 보내는 모달창 띄우기 (userNo , userNick 모달창에 넘겨줌);
+    	$('.show-message-modal').on('click', function() {
+    	
+    		var no = $(this).attr('data-no'),
+    		    nickname = $(this).attr('data-nick');
+    		
+    		$('#message-send-form .receiver.no').attr('value', no);
+    		$('#message-send-form .ui.dividing.header').text('To : ' + nickname);
+    		
+    		
+    		
+    	});
+    	
+    	
+    	function messageFormClear() {
+    		$('#message-send-form').form('clear');
+    	}
+    
+    	
+    	$('#message-send-form').api({
+	    	  action: 'send message',  
+	          method: 'POST',
+	          serializeForm: true,
+	          data: {  
+// 	        	receiverNickname : clickUserNickname
+// 	          	receiverNo : receiverNo
+	          },
+	          
+	          beforeSend: function(settings) {
+	        	  
+	  			return settings;
+	          },
+	          
+	          beforeXHR: function(xhr) {
+	          	xhr.setRequestHeader (header, token);
+	          },
+	      
+	          onSuccess: function (response, element, xhr) {
+
+	        	  /* 0=실패   1=성공*/
+	        	  
+	        	  switch(response) {
+	        	  
+	        	  case 0 : 
+	        		  
+	        		  swal({
+	        			  title: "쪽지",
+	        			  text: "쪽지 발송에 실패하였습니다.",
+	        			  type: "error",           
+	        			  confirmButtonText: "확인",
+	        			  confirmButtonColor: "#21BA45"             		 
+	        		  }, function() {
+	        			  location.reload();
+	        		  });
+	        		  
+	        		  break;
+				   
+				   case 1 :
+					   
+					   swal({
+		    			   title: "쪽지",
+		    			   text: "쪽지가 성공적으로 발송되었습니다.",
+		    			   type: "success",
+		    			   confirmButtonText: "확인",
+		    			   confirmButtonColor: "#21BA45"
+		     
+		    		   });   		   
+
+					   break;
+				    	  
+	        	  }
+	        
+	          },
+	          
+	          onFailure: function(response, element) {
+	          	
+	          },
+	          
+	          onError:  function(errorMessage, element, xhr) {
+	          	
+	          }
+	          
+	    	  
+	      });
+
+		
+		
+	});
+
+	
+	
+})(jQuery);
+
+
+
+
+
+
+
+

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:websocket="http://www.springframework.org/schema/websocket"
+    xmlns:jms="http://www.springframework.org/schema/jms"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd
+        http://www.springframework.org/schema/websocket
+        http://www.springframework.org/schema/websocket/spring-websocket.xsd
+        http://www.springframework.org/schema/jms
+        http://www.springframework.org/schema/jms/spring-jms.xsd">
+
+  <!-- Controller + Security + Logger 를 제외한 객체 준비. -->
+  <context:component-scan base-package="com.trashbox">
+    <context:exclude-filter type="annotation" 
+          expression="org.springframework.stereotype.Controller"/>
+<!--     <context:exclude-filter type="regex"  -->
+<!--           expression="com\.trashbox\.security\..*"/> -->
+<!--     <context:exclude-filter type="regex"  -->
+<!--           expression="com\.trashbox\.logger\..*"/> -->
+  </context:component-scan> 
+  
+  
+  <!-- 필터를 꼽을 메서드의 이름을 지정한다. -->  
+  <tx:advice id="txAdvice" transaction-manager="txManager">
+      <tx:attributes>
+          <tx:method name="get*" propagation="NOT_SUPPORTED"/>
+          <tx:method name="list*" read-only="true"/>
+          <tx:method name="*" propagation="REQUIRED"/>
+      </tx:attributes>
+  </tx:advice>  
+  
+  <!-- 필터 꼽기 -->
+  <aop:config>
+     <!-- 필터를 꼽을 대상 지정하기 -->
+     <aop:pointcut id="serviceOperation" 
+       expression="execution(* com.trashbox.service..*Service.*(..))"/>
+     <aop:advisor pointcut-ref="serviceOperation" advice-ref="txAdvice"/>
+  </aop:config>
+  
+    
+  <!-- mybatis 관련 객체 준비 -->
+  <!-- bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" class="org.springframework.jdbc.datasource.DriverManagerDataSource">-->
+  <bean id="dataSourceSpied" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+    <property name="driverClassName" value="com.mysql.jdbc.Driver"/> <!--  net.sf.log4jdbc.sql.jdbcapi.DriverSpy-->
+    <property name="url" value="jdbc:mysql://localhost:3306/trashbox_db"/> <!--  jdbc:log4jdbc:mysql://localhost:3306/trashbox_db-->
+    <property name="username" value="user"/>
+    <property name="password" value="password"/>
+  </bean>
+
+  <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	  <property name="dataSource" ref="dataSource" />
+	  <property name="typeAliasesPackage" value="com.trashbox.vo" />
+	  <property name="mapperLocations" value="classpath*:com/trashbox/dao/*Dao.xml" />
+  </bean>
+
+  <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	  <property name="dataSource" ref="dataSource"/>
+  </bean>
+	
+	<!-- DAO 자동 생성기 
+	   => DAO 인터페이스를 찾아서 그 일을 할 객체를 준비한다.
+	-->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+	  <property name="basePackage" value="com.trashbox.dao" />
+	</bean>
+	
+	
+	<bean id="dataSource" class="net.sf.log4jdbc.sql.jdbcapi.DataSourceSpy">
+      <constructor-arg ref="dataSourceSpied" />
+    </bean>
+    
+    
+    <!-- Mail -->
+    <bean id="mailSender" class ="org.springframework.mail.javamail.JavaMailSenderImpl" >
+      <property name="host" value="smtp.gmail.com" />
+      <property name="port" value="587" />
+      <property name="defaultEncoding" value="UTF-8" />
+      <property name="username" value="user@email.com" />
+      <property name="password" value="emailpassword" />
+      <property name="javaMailProperties">
+        <props>
+          <prop key="mail.smtp.starttls.enable">true</prop>
+        </props>
+      </property>
+	</bean>
+	
+	<!-- Velocity -->
+	<bean id="velocityEngine" class="org.springframework.ui.velocity.VelocityEngineFactoryBean">
+        <property name="velocityProperties">
+            <value>
+                resource.loader=class
+                class.resource.loader.class=org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader
+            </value>
+        </property>
+    </bean>
+	
+	
+
+   <!-- Websocket [ SockJS , STOMP ] -->
+   
+   <websocket:message-broker application-destination-prefix="/app">
+     
+     <websocket:stomp-endpoint path="/portfolio" >
+      <websocket:sockjs/>	
+     </websocket:stomp-endpoint >
+    
+     <websocket:simple-broker prefix="/topic, /queue"/>
+<!--      <websocket:stomp-broker-relay prefix="/topic, /queue"  -->
+<!--                heartbeat-send-interval="20000"  -->
+<!--                heartbeat-receive-interval="20000"/> -->
+     
+   </websocket:message-broker>
+	
+  <!-- JMS -->
+  
+<!--   <jms:annotation-driven/>  -->
+  
+  <!-- Activemq connection factory -->
+<!--   <bean id="amqConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory"> -->
+<!--     brokerURL -->
+<!--     <constructor-arg index="0" value="tcp://localhost:61616" /> -->
+<!--   </bean> -->
+ 
+  <!-- Pooled Spring connection factory -->
+<!--   <bean id="connectionFactory" -->
+<!--     class="org.springframework.jms.connection.CachingConnectionFactory"> -->
+<!--     <constructor-arg ref="amqConnectionFactory" /> -->
+<!--   </bean> -->
+ 
+  <!-- =============================================== -->
+  <!-- JMS receive, define JmsListenerContainerFactory -->
+  <!-- =============================================== -->
+<!--   <bean id="jmsListenerContainerFactory" -->
+<!--     class="org.springframework.jms.config.DefaultJmsListenerContainerFactory"> -->
+<!--     <property name="connectionFactory" ref="connectionFactory" /> -->
+<!--     <property name="concurrency" value="3-10"/> -->
+<!--   </bean> -->
+  
+  
+   <!-- JmsTemplate Definition -->
+<!--   <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate"> -->
+<!--     <property name="connectionFactory" ref="connectionFactory" /> -->
+<!--   </bean> -->
+
+<!-- 	<bean id="paginationUtil" class="com.trashbox.service.support.PaginationUtil"> -->
+<!-- 	 <constructor-arg name="paginationInfo" ref="paginationInfo"/> -->
+<!-- 	</bean> -->
+<!-- 	<bean id="paginationInfo" class="com.trashbox.vo.PaginationInfo" /> -->
+	
+</beans>
+
+
+
+
+
+
+
+
+

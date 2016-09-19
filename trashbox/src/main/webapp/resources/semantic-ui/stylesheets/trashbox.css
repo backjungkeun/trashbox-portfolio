@@ -1,0 +1,166 @@
+@CHARSET "UTF-8";
+
+.masthead.segment {
+	min-height: 700px;
+	padding: 1em 0em;
+}
+
+.masthead .logo.item img {
+	margin-right: 1em;
+}
+
+.masthead .ui.menu .ui.button {
+	margin-left: 0.5em;
+}
+
+.masthead h1.ui.header {
+	margin-top: 2.5em;
+	margin-bottom: 0em;
+	font-size: 6em;
+	font-weight: normal;
+}
+
+.masthead h2 {
+	font-size: 1.7em;
+	font-weight: normal;
+}
+
+.ui.vertical.stripe {
+	padding: 8em 0em;
+}
+
+.ui.vertical.stripe h3 {
+	font-size: 2em;
+}
+
+.ui.vertical.stripe .button+h3, .ui.vertical.stripe p+h3 {
+	margin-top: 3em;
+}
+
+.ui.vertical.stripe .floated.image {
+	clear: both;
+}
+
+.ui.vertical.stripe p {
+	font-size: 1.33em;
+}
+
+.ui.vertical.stripe .horizontal.divider {
+	margin: 3em 0em;
+}
+
+.quote.stripe.segment {
+	padding: 0em;
+}
+
+.quote.stripe.segment .grid .column {
+	padding-top: 5em;
+	padding-bottom: 5em;
+}
+
+.footer.segment {
+	padding: 5em 0em;
+}
+/*
+    .secondary.pointing.menu .toc.item {
+      display: none;
+    }
+      
+*/
+#banner {
+	background-image: url(../assets/images/photo-Sergei%20Zolkin.jpg);
+	background-size: cover;
+}
+
+#banner:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: hsla(0, 0%, 0%, 0.5);
+}
+
+#banner .ui.text.container {
+	position: relative;
+	z-index: 1;
+}
+
+.ui.inverted.fixed.menu {
+	box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+#user-info-box {
+	padding-top: 3em;
+	height: 300px;
+	background-image:
+		url(../assets/images/SplitShire-0129-1800x1200-970x500.jpg);
+	background-size: cover;
+	background-position: right;
+	text-align: center;
+	border-style: solid;
+	border-color: #1B1C1D;
+}
+
+#user-info-box:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: hsla(0, 0%, 0%, 0.9);
+}
+
+#user-info-box .ui.tiny.circular.image>img {
+	position: relative;
+	z-index: 2;
+	width: 80px;
+	height: 80px;
+	border-style: solid;
+	border-width: 2px;
+}
+
+#user-info-box .ui.center.aligned.container {
+	position: relative;
+	z-index: 2;
+	margin-top: 2em;
+}
+
+@media only screen and (max-width: 1040px) {
+	.masthead h1.ui.header {
+		color: white;
+		font-size: 4em;
+	}
+}
+
+@media only screen and (max-width: 788px) {
+	/*.ui.inverted.fixed.menu .right.item {
+                display: none;
+            }
+            .ui.inverted.fixed.menu .toc.item {
+                display: block;
+            } 
+            */
+	.masthead.segment {
+		min-height: 350px;
+	}
+	.masthead h1.ui.header {
+		color: white;
+		font-size: 4em;
+		margin-top: 1.5em;
+	}
+	.masthead h2 {
+		margin-top: 0.5em;
+		font-size: 1.5em;
+	}
+}
+
+@media only screen and (max-width: 375px) {
+	.masthead h1.ui.header {
+		color: white;
+		font-size: 3em;
+		margin-top: 2em;
+	}
+}

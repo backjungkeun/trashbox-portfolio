@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  
+<mapper namespace="com.trashbox.dao.UserDao">
+  
+  <resultMap type="User" id="UserMap">
+    <id     column="no"                    property="no"/>
+    <result column="id"                    property="id"/>
+    <result column="password"              property="password"/>
+    <result column="nickname"              property="nickname"/>
+    <result column="email"                 property="email"/>
+    <result column="registration_date"     property="registrationDate"/>
+    <result column="last_login_date"       property="lastLoginDate"/>
+    <result column="profile_image"         property="profileImage"/>
+    <result column="enabled"               property="enabled"/>
+    <result column="unlocked"			   property="unlocked"/>   
+  </resultMap>
+  
+  
+    <!-- Login -->
+    
+    <select id="getUserNo" parameterType="String" resultType="int">
+      SELECT user.no 
+      FROM user 
+      WHERE user.id=#{id}; 
+    </select>
+    
+     <select id="getUser" parameterType="int" resultMap="UserMap">
+      SELECT user.no, 
+	         user.id, 
+             user.password, 
+             user.nickname, 
+             user.email, 
+             user.registration_date,
+             user.last_login_date,
+             user.profile_image,
+             (CASE WHEN user.enabled > 0 THEN 'true' ELSE 'false' END) As enabled,
+      		 (CASE WHEN user.unlocked > 0 THEN 'true' ELSE 'false' END) As unlocked
+      FROM user 
+      WHERE user.no=#{no}; 
+    </select>
+    
+<!--      <select id="findByUser" parameterType="java.lang.String" resultMap="UserMap"> -->
+<!--       SELECT user.no,  -->
+<!-- 	         user.id,  -->
+<!--              user.password,  -->
+<!--              user.nickname,  -->
+<!--              user.email,  -->
+<!--              user.registration_date, -->
+<!--              user.last_login_date, -->
+<!--              user.profile_image, -->
+<!--              (CASE WHEN user.enabled > 0 THEN 'true' ELSE 'false' END) As enabled, -->
+<!--       		 (CASE WHEN user.unlocked > 0 THEN 'true' ELSE 'false' END) As unlocked -->
+<!--       FROM user  -->
+<!--       WHERE user.id=#{id};  -->
+<!--     </select> -->
+  
+  
+
+<!-- 	<select id="findByUser" parameterType="java.lang.String" resultMap="UserMap"> -->
+<!-- 	   SELECT user.no,   -->
+<!-- 	          user.id,  -->
+<!-- 	          user.password,  -->
+<!-- 	          user.nickname,  -->
+<!-- 	          user.email,   -->
+<!-- 	          user.registration_date,  -->
+<!-- 	          user.last_login_date,       -->
+<!-- 	          (CASE WHEN user.enabled > 0 THEN 'true' ELSE 'false' END) As enabled, -->
+<!--       		  (CASE WHEN user.unlocked > 0 THEN 'true' ELSE 'false' END) As unlocked, -->
+<!--       		  role.no as role_no, -->
+<!--       		  role.name as role_name -->
+	                     
+<!-- 	   FROM user  -->
+<!-- 	  		LEFT OUTER JOIN user_role ON user.no=user_role.user_no  -->
+<!-- 	        LEFT OUTER JOIN role ON user_role.role_no=role.no  -->
+	      
+<!-- 	   WHERE user.id=#{id}; -->
+<!-- 	</select> -->
+	
+	
+	<update id="updateLoginDate" parameterType="Map">
+	   UPDATE user 
+	   SET last_login_date=#{date} 
+	   WHERE no=#{no};
+	</update>
+	
+	<update id="updateEnabled" parameterType="int">
+	   UPDATE user 
+	   SET enabled=0
+	   WHERE no=#{no};
+	</update>
+	
+	
+	<select id="checkDuplicateId" parameterType="java.lang.String" resultType="int">
+	   SELECT COUNT(*)
+       FROM user 
+       WHERE id=#{id} 
+	</select>
+	
+	<select id="checkDuplicateNickname" parameterType="java.lang.String" resultType="int">
+	   SELECT COUNT(*)
+       FROM user 
+       WHERE nickname=#{nickname} 
+	</select>
+	
+	<select id="checkDuplicateEmail" parameterType="java.lang.String" resultType="int">
+	   SELECT COUNT(*)
+       FROM user 
+       WHERE email=#{email} 
+	</select>
+	
+	<update id="updateNickname" parameterType="Map">
+	   UPDATE user 
+	   SET nickname=#{nickname}
+	   WHERE id=#{id};	   
+	</update>
+	
+	<update id="changePassword" parameterType="Map">
+	   UPDATE user 
+	   SET password=#{password}
+	   WHERE id=#{id};	   
+	</update>
+	
+	<select id="getNickname" parameterType="int" resultType="java.lang.String">
+	   SELECT nickname
+       FROM user 
+       WHERE no=#{no};
+	</select>
+
+	<select id="getId" parameterType="int" resultType="java.lang.String">
+	   SELECT id
+       FROM user 
+       WHERE no=#{no};
+	</select>
+	
+	<select id="getIdByEmail" parameterType="java.lang.String" resultType="java.lang.String">
+	   SELECT id 
+	   FROM user 
+	   WHERE email=#{email}; 
+	</select>
+	
+	
+	
+	
+	<update id="updateEmail" parameterType="Map">
+	   UPDATE user 
+	   SET email=#{email}
+	   WHERE id=#{id};	   
+	</update>
+	
+	<select id="getEmail" parameterType="java.lang.String" resultType="java.lang.String">
+	   SELECT user.email 
+       FROM user 
+       WHERE id=#{id} 
+	</select>
+	
+	
+	<select id="getAuthKey" parameterType="java.lang.String" resultType="java.lang.String">
+	  SELECT user.authority_key 
+	  FROM user 
+	  WHERE id=#{id};
+	</select>
+	
+	<update id="updateAuthKey" parameterType="Map">
+	   UPDATE user 
+	   SET authority_key=#{authKey}
+	   WHERE id=#{id};	   
+	</update>
+	
+	<select id="getUnlocked" parameterType="java.lang.String" resultType="java.lang.Boolean">
+	  SELECT (CASE WHEN user.unlocked > 0 THEN 'true' ELSE 'false' END) As unlocked 
+	  FROM user 
+	  WHERE id=#{id};
+	</select>
+	
+	<update id="updateUnlocked" parameterType="Map">
+	   UPDATE user 
+	   SET unlocked=#{value} 
+	   WHERE id=#{id};
+	</update>
+	
+	
+	<update id="updateProfileImage" parameterType="Map">
+	   UPDATE user
+	   SET profile_image=#{imageName} 
+	   WHERE no=#{no};  
+	</update>
+	
+	<insert id="addUser" useGeneratedKeys="true" parameterType="User" keyColumn="no" keyProperty="no">
+	  INSERT INTO user (id, password, nickname, email, registration_date, last_login_date, enabled, unlocked, authority_key, profile_image) 
+	  VALUES (#{id}, #{password}, #{nickname}, #{email}, now(), now(), '1', '0', 'default', 'default-profile.png');
+	</insert>
+	
+	<select id="getUserDefaultInfo" parameterType="java.util.List" resultMap="UserMap">
+	  SELECT user.no,
+	         user.nickname,
+	         user.registration_date,
+	         user.last_login_date,
+	         user.profile_image ,
+	         user.enabled
+	  
+	  FROM user 
+	  WHERE user.no in
+	  
+	  <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+	    #{item}
+	  </foreach>
+	
+	
+	</select>
+	
+	
+<!--     <select id="getNicknames" parameterType="java.util.List" resultType="String"> -->
+<!-- 	   SELECT user.nickname -->
+<!--        FROM user  -->
+<!--        WHERE user.no= -->
+       
+<!--        <foreach item="item" index="index" collection="list" open="(" separator="," close=")"> -->
+<!--         #{item} -->
+<!--        </foreach> -->
+       
+<!-- 	</select> -->
+	
+	<select id="checkUserByIdAndEmail" parameterType="Map" resultType="Boolean">
+	  SELECT (CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END) As result 
+	  FROM user 
+	  WHERE user.id=#{id} AND user.email=#{email};
+	</select>
+	
+</mapper>
+
+
+
+

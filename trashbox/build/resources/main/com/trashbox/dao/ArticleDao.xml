@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.trashbox.dao.ArticleDao">
+  <resultMap type="Article" id="ArticleMap">
+    <id 	column="no" property="no"/>
+    <result column="user_no" property="userNo"/>
+    <result column="board_no" property="boardNo"/>
+    <result column="nickname" property="userNickname"/>
+    <result column="title" property="title"/>
+    <result column="content" property="content"/>
+    <result column="hit_count" property="hitCount"/>
+    <result column="recommend_count" property="recommendCount"/>
+    <result column="registration_date" property="registrationDate"/>
+    <result column="change_date" property="changeDate"/>
+    <result column="has_image" property="hasImage"/>
+    <result column="has_file" property="hasFile"/>
+  </resultMap>
+
+
+  <select id="selectList" parameterType="Map" resultMap="ArticleMap">
+	   SELECT article.no, 
+	          article.user_no,
+	          article.board_no,
+	          user.nickname, 
+	          article.title, 
+	          article.content, 
+	          article.hit_count, 
+	          article.recommend_count, 
+	          article.registration_date, 
+	          article.change_date,
+	          article.has_image,
+	          article.has_file
+	   
+	   FROM article
+       
+       LEFT OUTER JOIN user ON user.no=article.user_no
+      	   
+	   WHERE board_no=#{boardNo}
+  
+	   ORDER BY article.no DESC  
+	   
+	   LIMIT 15 OFFSET #{page};
+  </select>
+  
+  <select id="selectPrevAndNextList" parameterType="Map" resultMap="ArticleMap">
+     SELECT  A.no, 
+	         A.user_no, 
+	         A.board_no, 
+	         U.nickname, 
+	         A.title, 
+	         A.content, 
+	         A.hit_count, 
+	         A.recommend_count, 
+	         A.registration_date, 
+	         A.change_date,
+	         A.has_image,
+	         A.has_file
+	 
+	 FROM ( SELECT * FROM 
+	          (SELECT * 
+               FROM article 
+               WHERE <![CDATA[article.no = #{no}]]> AND article.board_no=#{boardNo} 
+               ) AS C
+               
+            UNION ALL 
+            
+            SELECT * FROM 
+	          (SELECT * 
+               FROM article 
+               WHERE <![CDATA[article.no < #{no}]]> AND article.board_no=#{boardNo} 
+               ORDER BY article.no DESC LIMIT 2) AS P 
+               
+            UNION ALL 
+               
+            SELECT * FROM 
+              (SELECT * 
+               FROM article 
+               WHERE <![CDATA[article.no > #{no}]]> AND article.board_no=#{boardNo} 
+               ORDER BY article.no ASC LIMIT 2) AS N 
+               
+           ) AS A 
+           
+	 LEFT OUTER JOIN user AS U ON U.no=A.user_no 
+	 ORDER BY A.no DESC ;
+
+  </select>
+	
+  <select id="selectArticle" parameterType="int" resultMap="ArticleMap">
+	   SELECT article.no,
+	          article.user_no,
+	          article.board_no,	    
+	          user.nickname, 
+	          article.title, 
+	          article.content, 
+	          article.hit_count, 
+	          article.recommend_count, 
+	          article.registration_date, 
+	          article.change_date,
+	          article.has_image,
+	          article.has_file
+	   
+	   FROM article
+       
+       LEFT OUTER JOIN user ON user.no=article.user_no
+       
+       WHERE article.no=#{no};
+	
+  </select>
+  
+  <select id="selectTotalCount" parameterType="int" resultType="int">
+	   SELECT T2.* 
+	   
+	   FROM (
+	         SELECT ifnull(MAX(@RNUM:=@RNUM+1), 0) AS RN
+	         FROM (SELECT * FROM article WHERE board_no=#{boardNo}) AS T1, 
+	              (SELECT @RNUM:=0) AS R 
+	        ) AS T2; 
+  </select>
+  
+  <select id="selectSearchTotalCount" parameterType="Map" resultType="int">
+	   SELECT T2.* 
+	   
+	   FROM (
+	         SELECT ifnull(MAX(@RNUM:=@RNUM+1), 0) AS RN
+	         FROM (SELECT article.no, 
+	                      article.user_no, 
+	                      article.board_no, 
+	                      user.nickname, 
+	                      article.title, 
+	                      article.content, 
+	                      article.hit_count, 
+	                      article.recommend_count, 
+	                      article.registration_date, 
+	                      article.change_date
+	         
+	               FROM article 
+	               
+	               LEFT OUTER JOIN user ON user.no=article.user_no 
+	               
+	               
+	               WHERE board_no=#{boardNo} 
+	         <choose>
+	           <when test="searchTarget == 'title_content'">
+	              AND title LIKE CONCAT('%', #{searchQuery} ,'%') OR content LIKE CONCAT('%', #{searchQuery} ,'%') 
+	           </when>
+	           <when test="searchTarget == 'title'">
+	              AND title LIKE CONCAT('%', #{searchQuery} ,'%') 
+	           </when>
+	           <when test="searchTarget == 'content'">
+	              AND content LIKE CONCAT('%', #{searchQuery} ,'%') 
+	           </when>
+	           <when test="searchTarget == 'nickname'">
+	              AND nickname LIKE CONCAT('%', #{searchQuery} ,'%') 
+	           </when>
+	           <otherwise>
+	              AND title LIKE CONCAT('%', #{searchQuery} ,'%') OR content LIKE CONCAT('%', #{searchQuery} ,'%') 
+	           </otherwise>
+	         </choose> 
+	         ) AS T1, 
+	         
+	         (SELECT @RNUM:=0) AS R 
+	        ) AS T2; 
+  </select>
+  
+  <insert id="insert" parameterType="Article" useGeneratedKeys="true"  keyProperty="no" >
+	   INSERT INTO article (user_no, board_no, title, content, registration_date, change_date, has_image) 
+	   VALUES (#{userNo}, #{boardNo}, #{title}, #{content}, now(), now(), #{hasImage} ); 
+  </insert>
+  
+  <update id="update" parameterType="Article">
+       UPDATE article 
+       SET board_no=#{boardNo},
+           title=#{title}, 
+           content=#{content},  
+           change_date=now(), 
+           has_image=#{hasImage},
+           has_file=#{hasFile}
+       WHERE no=#{no};
+  </update>
+
+  <delete id="delete" parameterType="int">
+        DELETE FROM article WHERE no=#{no};
+  </delete>
+	
+
+	
+	
+  
+  
+  <update id="updateRecommendCount" parameterType="Map">
+     UPDATE article 
+     SET recommend_count = recommend_count + 1 
+     WHERE no=#{no};
+  </update>
+  
+  
+  <select id="selectTotalRecommendCount" parameterType="int" resultType="int">
+     SELECT recommend_count FROM article WHERE no=#{no};
+  </select>
+  
+  
+  <update id="updateHitCount" parameterType="int">
+    UPDATE article 
+    SET hit_count= hit_count + 1 
+    WHERE no=#{no};
+  
+  </update>
+  
+  
+  
+  <select id="selectList2" parameterType="Map" resultMap="ArticleMap">
+	   SELECT article.no, 
+	          article.title, 
+	          article.hit_count, 
+	          article.recommend_count, 
+	          article.registration_date
+
+	   FROM article
+       
+       <where>
+         <if test="boardNo != null">
+          board_no=#{boardNo}
+         </if>
+       </where>
+       
+      <trim prefix="ORDER BY"> 
+         <if test="order == 'hit'">  article.hit_count DESC LIMIT #{limit} OFFSET 0;   </if>
+         <if test="order == 'no'">  article.no DESC LIMIT #{limit} OFFSET 0;   </if>                        
+      </trim> 
+	   
+	   
+	   
+	   
+	   
+	  
+
+  </select>
+
+
+  <select id="selectSearchList" parameterType="Map" resultMap="ArticleMap">
+      SELECT  article.no, 
+	          article.user_no,
+	          article.board_no,
+	          user.nickname, 
+	          article.title, 
+	          article.content, 
+	          article.hit_count, 
+	          article.recommend_count, 
+	          article.registration_date, 
+	          article.change_date,
+	          article.has_image,
+	          article.has_file
+	   
+	   FROM article
+       
+       LEFT OUTER JOIN user ON user.no=article.user_no
+      	   
+	   WHERE board_no=#{boardNo} 
+	   
+	   <choose>
+	     <when test="searchTarget == 'title_content'">
+	        AND title LIKE CONCAT('%', #{searchQuery} ,'%') OR content LIKE CONCAT('%', #{searchQuery} ,'%') 
+	     </when>
+	     <when test="searchTarget == 'title'">
+	        AND title LIKE CONCAT('%', #{searchQuery} ,'%')
+	     </when>
+	     <when test="searchTarget == 'content'">
+	        AND content LIKE CONCAT('%', #{searchQuery} ,'%')
+	     </when>
+	     <when test="searchTarget == 'nickname'">
+	        AND nickname LIKE CONCAT('%', #{searchQuery} ,'%')
+	     </when>
+	     <otherwise>
+	        AND title LIKE CONCAT('%', #{searchQuery} ,'%') OR content LIKE CONCAT('%', #{searchQuery} ,'%') 
+	     </otherwise>
+	   </choose>
+  
+       
+	   ORDER BY article.no DESC  
+	   
+	   LIMIT 15 OFFSET #{page}
+	   
+       ;
+  </select>
+
+
+</mapper>
+
+
+
+

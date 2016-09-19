@@ -1,0 +1,124 @@
+apply plugin:"java"
+apply plugin:"eclipse-wtp" 
+apply plugin:"war" 
+
+compileJava {
+  options.encoding = "UTF-8"
+  sourceCompatibility = 1.8
+}
+
+eclipse {
+  wtp {
+    facet {
+      facet name: 'jst.web', version: '3.1'
+      facet name: 'jst.java', version: '1.8'
+    }
+  }
+}
+
+
+repositories {
+    mavenCentral() 
+}
+
+dependencies {
+
+    providedCompile 'javax.servlet:javax.servlet-api:3.1.0'
+ 
+ 	//Web
+    compile 'javax.servlet:jstl:1.2'
+    
+    //MySql
+    compile 'mysql:mysql-connector-java:5.1.36'
+    
+ 	//DBCP
+ 	compile 'commons-dbcp:commons-dbcp:1.4'
+    
+    //Mybatis
+    compile 'org.mybatis:mybatis:3.3.0'
+    compile 'org.mybatis:mybatis-spring:1.2.3'
+    
+    //Spring
+    compile 'org.springframework:spring-context:4.2.5.RELEASE'
+    compile 'org.springframework:spring-webmvc:4.2.5.RELEASE'
+    compile 'org.springframework:spring-jdbc:4.2.5.RELEASE' //?
+    
+    compile 'org.springframework:spring-context-support:4.2.5.RELEASE'
+    
+    
+    //Spring Security
+    compile 'org.springframework.security:spring-security-web:4.1.0.RELEASE'
+    compile 'org.springframework.security:spring-security-config:4.1.0.RELEASE'
+    compile 'org.springframework.security:spring-security-taglibs:4.1.0.RELEASE'
+    
+    //AspectJ
+    compile 'org.aspectj:aspectjweaver:1.8.7'
+    
+    //MultipartHttpServletRequest
+    compile 'commons-fileupload:commons-fileupload:1.3.1'
+    
+    //Gson
+    compile 'com.google.code.gson:gson:2.3.1'
+
+	//Logging
+    compile 'org.slf4j:slf4j-api:1.7.12' //slf4j *
+    compile 'org.slf4j:jcl-over-slf4j:1.7.12' // JCL(Jakarta Commons Logging) 유지 시, commons-logging.jar를 jcl-over-slf4j.jar로 대체
+    compile 'org.slf4j:jul-to-slf4j:1.7.12' // JUL(java util logging) 
+    compile 'org.slf4j:log4j-over-slf4j:1.7.12' // Log4j to SLF4J Adapter
+    
+    //Log4j2
+    compile 'org.apache.logging.log4j:log4j-core:2.4.1' //log4j-core *
+    compile 'org.apache.logging.log4j:log4j-api:2.4.1' //log4j-api *
+    compile 'org.apache.logging.log4j:log4j-slf4j-impl:2.4.1' //log4j-slf4j-impl *
+    
+    compile 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:1.16' 
+  
+  	//Mail
+  	compile 'javax.mail:mail:1.4.7'
+  	
+  	//Velocity
+  	compile 'org.apache.velocity:velocity:1.7' // Template Engines
+  	compile 'org.apache.velocity:velocity-tools:2.0'
+  	
+  	
+  	//WebSocket
+  	compile 'org.springframework:spring-websocket:4.2.5.RELEASE'
+  	
+  	//Spring Messaging
+  	compile 'org.springframework:spring-messaging:4.2.5.RELEASE'
+  	compile 'io.projectreactor:reactor-core:2.0.7.RELEASE'
+  	compile 'io.projectreactor:reactor-net:2.0.7.RELEASE'
+  	compile 'io.netty:netty-all:4.0.34.Final' 
+  	compile 'com.fasterxml.jackson.core:jackson-databind:2.6.5'
+
+	//Spring JMS
+	/*compile 'org.springframework:spring-jms:4.2.1.RELEASE'*/
+	
+
+  	//ActiveMQ
+  	//compile 'org.apache.activemq:activemq-spring:5.13.1'
+  	
+  	
+  	//Naver Lucy Xss Servlet Filter
+  	compile 'com.navercorp.lucy:lucy-xss-servlet:2.0.0'
+  	
+
+
+    //tiles3
+    
+    compile ('org.apache.tiles:tiles-extras:3.0.5') {
+       exclude module: 'slf4j-api'
+    }
+    compile ('org.apache.tiles:tiles-servlet:3.0.5')  {
+       exclude module: 'slf4j-api'
+    }
+    compile ('org.apache.tiles:tiles-jsp:3.0.5') {
+       exclude module: 'slf4j-api'
+    }
+
+  	
+}
+
+configurations {
+    compile.exclude module: 'commons-logging'
+}

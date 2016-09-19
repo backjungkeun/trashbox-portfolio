@@ -1,0 +1,42 @@
+@charset "UTF-8";
+ /*******************************
+            Main
+ *******************************/
+
+/* large following bar , small fixed menu bar */ 
+ .following.bar .header, 
+ .fixed.inverted.menu .header {
+    font-family: 'Hanna', sans-serif;
+    font-weight: normal!important;
+ }
+ 
+
+/* sidebar menu */
+.sidebar.menu .item {
+	font-family: 'Hanna', sans-serif;
+	font-weight: normal;
+	font-size: medium;
+} 
+
+/*main: ajax-tab menu*/
+.ajax-tab.menu {
+	font-family: 'Jeju Gothic', sans-serif;
+	font-weight: normal;
+	font-size: medium;
+}
+
+
+ #user-info-box .user-id {
+   	font-family: 'Hanna', sans-serif;
+	font-weight: normal;
+	
+}
+
+.stripe.article .my.header, .stripe.article p.info {
+    font-family: "Jeju Gothic";
+    font-size: medium!important;
+    font-weight: normal;
+  
+}
+
+   

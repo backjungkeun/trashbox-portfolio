@@ -1,0 +1,216 @@
+/*--------------
+    CoreStyle
+---------------*/
+
+.notifyjs-corner {
+	position: fixed;
+	margin: 5px;
+	z-index: 1050;
+	max-width: 50%;
+	max-height: 19%;
+}
+
+.notifyjs-corner .notifyjs-wrapper,
+.notifyjs-corner .notifyjs-container {
+	position: relative;
+	display: block;
+	height: inherit;
+	width: inherit;
+	margin: 3px;
+}
+
+.notifyjs-wrapper {
+	z-index: 1;
+	position: absolute;
+	display: inline-block;
+	height: 0;
+	width: 0;
+}
+
+.notifyjs-container {
+	display: none;
+	z-index: 1;
+	position: absolute;
+}
+
+.notifyjs-hidable {
+	cursor: pointer;
+}
+
+[data-notify-text],[data-notify-html] {
+	position: relative;
+}
+
+.notifyjs-arrow {
+	position: absolute;
+	z-index: 2;
+	width: 0;
+	height: 0;
+}
+
+/*--------------
+    Semantic
+---------------*/
+
+   .notifyjs-semantic-base {
+        position: relative;
+        min-height: 1em;
+        margin: 0.3em 0em;
+        background: #f8f8f9;
+        padding: 0.3em 0.5em;
+        line-height: 1.4285em;
+        color: rgba(0, 0, 0, 0.87);
+        -webkit-transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, box-shadow 0.1s ease;
+                transition: opacity 0.1s ease, color 0.1s ease, background 0.1s ease, box-shadow 0.1s ease;
+        border-radius: 0.28571429rem;
+        box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.22) inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+   }
+
+    .notifyjs-semantic-base .image {
+        display: table;
+        position: absolute;
+        height: auto;
+        width: auto;
+        left: 25px;
+        top: 50%;
+
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+
+    .notifyjs-semantic-base .text-wrapper {
+        display: inline-block;
+        vertical-align: top;
+        text-align: left;
+        margin: 10px 10px 10px 10px;
+        clear: both;
+        font-family: 'Segoe UI';
+    }
+
+    .notifyjs-semantic-base .title {
+        display: block;
+        font-family: 'Lato', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+        font-weight: bold;
+        margin: -0.14285em 0em 0rem 0em;
+    }
+
+    .notifyjs-semantic-base .text {
+        font-size: 0.8em;
+        font-weight: normal;
+        vertical-align: middle;
+    }
+
+   
+/*--------------
+     Types
+---------------*/
+
+/* Info */
+.notifyjs-semantic-info {
+    background-color: #f8ffff; 
+    box-shadow: 0px 0px 0px 1px #a9d5de inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.notifyjs-semantic-info .title {
+    color: #0e566c;
+}
+
+.notifyjs-semantic-info .text {
+    color: #276f86;
+}
+
+/* Error */
+.notifyjs-semantic-error {
+    background-color: #fff6f6;  
+    box-shadow: 0px 0px 0px 1px #e0b4b4 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.notifyjs-semantic-error .title {
+    color: #912d2b;
+}
+
+.notifyjs-semantic-error .text {
+    color: #9f3a38;
+}
+
+/* Success */
+.notifyjs-semantic-success {
+    background-color: #fcfff5;
+    box-shadow: 0px 0px 0px 1px #a3c293 inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+}
+
+.notifyjs-semantic-success .title {
+    color: #1a531b;
+}
+
+.notifyjs-semantic-success .text {
+    color: #2c662d;
+}
+
+/* Warning */
+.notifyjs-semantic-warning {
+    background-color: #fffaf3;
+    box-shadow: 0px 0px 0px 1px #c9ba9b inset, 0px 0px 0px 0px rgba(0, 0, 0, 0);
+  
+}
+
+.notifyjs-semantic-warning .title {
+    color: #794b02;
+}
+
+.notifyjs-semantic-warning .text {
+    color: #573a08;
+}
+
+/* Black */
+
+.notifyjs-semantic-black {
+    background-color: #1b1c1d;
+}
+
+.notifyjs-semantic-black .title {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.notifyjs-semantic-black .text {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+
+
+
+
+/*--------------
+   media query
+---------------*/
+ 
+ @media only screen and (max-width: 500px) {   
+ 	.notifyjs-corner {
+	  max-height: 100px;
+	}
+/*     .notifyjs-semantic-base .text { */
+/* 	   display: none; */
+/* 	} */
+ }
+ 
+
+ @media only screen and (max-width: 650px) {
+     .notifyjs-corner {
+	  max-height: 24%;
+	}
+ }
+ 
+ @media only screen and (max-width: 767px) {
+    .notifyjs-corner {
+	  max-height: 24%;
+	}
+ }
+ 
+
+
+
+
+

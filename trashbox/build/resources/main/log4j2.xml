@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+ <!-- CustomLevel 설정 -->
+ <CustomLevels>
+   <CustomLevel name="START" intLevel="450" />
+   <CustomLevel name="END" intLevel="450" /> 
+   <CustomLevel name="HANDLER" intLevel="450" />
+ </CustomLevels>
+
+
+ 
+ <!-- Appender, Layout 설정 -->
+ <Appenders>
+  <Console name="console" target="SYSTEM_OUT">
+<!--    <PatternLayout pattern="%black{%d{HH:mm:ss}} %highlight{%-5level: %msg%n%throwable}{FATAL=white, ERROR=red, WARN=black, INFO=blue, DEBUG=green, TRACE=blue, START=Bright red, END=Bright red, HANDLER=Bright red}" /> -->
+   <PatternLayout pattern="%d{HH:mm:ss} %-5level: %msg%n%throwable" />
+  </Console>
+  
+ 
+  
+  <Console name="log4jdbc-console" target="SYSTEM_OUT">
+    <PatternLayout pattern="[%class{1}] - %msg%n" />
+  </Console>
+  
+
+  
+  <Console name="spring-console" target="SYSTEM_OUT">
+<!--   	 <PatternLayout pattern="%white{%d{HH:mm:ss}} %highlight{[%level]: [%class{1}] - %msg%n}{FATAL=white, ERROR=red, WARN=black, INFO=green, DEBUG=blue, TRACE=blue, START=Bright red, END=Bright red, HANDLER=Bright red}" /> -->
+  	 <PatternLayout pattern="%d{HH:mm:ss} [%level]: [%class{1}] - %msg%n" />
+  </Console>
+  
+ </Appenders>
+ 
+ <!-- Logger 설정 -->
+ <Loggers>
+ 
+
+  
+  <Logger name="log4jdbc.log4j2" level="info" additivity="false" > 
+   <MarkerFilter marker="LOG4JDBC_RESULTSETTABLE" onMatch="ACCEPT" onMismatch ="DENY" /> 
+   <AppenderRef ref="log4jdbc-console" /> 
+  </Logger>
+ 
+ 
+  
+  <Logger name="org.springframework" level="info" additivity="false">
+   <AppenderRef ref="spring-console" />
+  </Logger>
+  
+  
+ 
+  
+  <!-- my package -->
+  <Logger name="com.trashbox" level="debug" additivity="false">
+   <AppenderRef ref="spring-console"/>
+  </Logger>
+  
+  <Logger name="com.nhncorp.lucy.security.xss" level="info" additivity="false">
+    <AppenderRef ref="console" />
+  </Logger>
+    <Logger name="com.navercorp.lucy.security.xss" level="ALL" additivity="false">
+    <AppenderRef ref="console" />
+  </Logger>
+  
+  
+  <Root level="error">
+   <AppenderRef ref="console"/>
+  </Root>
+  
+ </Loggers>
+ 
+</Configuration>

@@ -1,0 +1,1230 @@
+@charset "UTF-8";
+
+ /*******************************
+            Homepage
+ *******************************/
+/* large following bar , small fixed menu bar */ 
+ .following.bar.fixed .menu > .header, 
+ .fixed.inverted.menu > .header {
+    font-family: 'Hanna', sans-serif;
+    font-weight: normal!important;
+ }
+ 
+
+/* sidebar menu */
+.sidebar.menu .item {
+	font-family: 'Hanna', sans-serif;
+	font-weight: normal;
+	font-size: medium;
+} 
+
+ 
+ @media only screen and (max-width: 992px) {
+     html {
+         overflow-x: visible;
+         -webkit-overflow-scrolling: auto;
+     }
+ }
+ 
+ 
+ #trashbox > .pusher {
+     display: block;
+     min-height: 0px;
+     flex-direction: initial;
+ }
+ 
+ #trashbox > .pusher > .full.height {
+     display: block;
+     flex: none !important;
+ }
+ /*******************************
+            Masthead
+ *******************************/
+ 
+ #trashbox .masthead {
+     position: relative;
+     overflow: hidden;
+     text-align: center;
+     padding: 0em;
+     color: rgba(255, 255, 255, 0.9);
+     margin-bottom: 0px;
+     border-bottom: none;
+     background-color: #000000;
+     background-position: 50% 50%;
+     -webkit-transform: translate3d(0, 0, 0);
+     transform: translate3d(0, 0, 0);
+ }
+ 
+ #trashbox .masthead:after {
+     position: absolute;
+     top: 0px;
+     left: 0px;
+     z-index: -1;
+     width: 100%;
+     height: 100%;
+     content: '';
+     background-size: cover;
+     opacity: 0.45;
+ }
+ 
+ #trashbox .masthead,
+ #trashbox .masthead:after {
+     -ms-transition: background 2s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 2s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+     -moz-transition: background 2s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 2s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+     -webkit-transition: background 2s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 2s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+     transition: background 2s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s, opacity 2s cubic-bezier(0.680, -0.550, 0.265, 1.4) 0s;
+ }
+ 
+ #trashbox .masthead.zoomed {
+     background-color: #25282A;
+ }
+ 
+ #trashbox .masthead.zoomed:after {
+     opacity: 0;
+ }
+ 
+ #trashbox .masthead.segment.zoomed h1 {
+     text-shadow: 0px 0px 4px rgba(0, 0, 0, 0);
+     color: rgba(255, 255, 255, 1);
+ }
+ 
+ #trashbox .masthead.bg:after {
+     background-image: url(../assets/images/photo-Sergei%20Zolkin.jpg);
+     background-size: cover;
+ }
+ 
+ #trashbox .masthead .container {
+     height: 55vh;
+     margin-left: auto !important;
+     margin-right: auto !important;
+     min-height: 600px;
+     -webkit-box-align: center;
+     -webkit-align-items: center;
+     -ms-flex-align: center;
+     align-items: center;
+     display: -webkit-box;
+     display: -webkit-flex;
+     display: -ms-flexbox;
+     display: flex;
+     -webkit-box-pack: center;
+     -webkit-justify-content: center;
+     -ms-flex-pack: center;
+     justify-content: center;
+ }
+ 
+ #trashbox .masthead .container {
+     padding: 15rem 0em;
+ }
+ 
+ #trashbox .introduction {
+     position: relative;
+     clear: both;
+     display: block;
+     text-align: center;
+ }
+ 
+ #trashbox .masthead .ui.header {
+     font-weight: normal;
+     font-family: hanna;
+     padding: 0.2em 1em;
+     border: 10px double rgba(254,254,254,0.3);
+     
+ }
+ 
+ #trashbox .masthead span.sub.header::before,
+ #trashbox .masthead span.sub.header::after {
+    content: '―';
+    font-weight: 200;
+}
+ 
+ #trashbox .masthead.segment h1 {
+     font-size: 3em;
+     color: rgba(255, 255, 255, 1);
+     line-height: 1.2;
+     margin: 0px 0px 0px;
+     padding-bottom: 0px;
+     -moz-perspective: 500px;
+     -webkit-perspective: 500px;
+     perspective: 500px;
+     text-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+     -moz-transform-style: preserve-3d;
+     -webkit-transform-style: preserve-3d;
+     transform-style: preserve-3d;
+ }
+ 
+ #trashbox .masthead.segment h1 .main.header {
+     display: block;
+     font-size: 1.75em;
+/*      font-weight: bold; */
+ }
+ 
+ #trashbox .masthead.segment h1 .sub.header {
+     font-size: 0.75em;
+ }
+ 
+ #trashbox .masthead .button {
+     position: absolute;
+     bottom: 10%;
+     left: calc(50% - 25px);
+ }
+ /*******************************
+            Stripes
+ *******************************/
+ /*--------------
+      Default
+ ---------------*/
+ 
+ #trashbox .stripe {
+     background-color: #FFFFFF;
+     padding: 5em 0px;
+     border-radius: 0em;
+     margin: 0em;
+     -webkit-transform: translate3d(0, 0, 0);
+     transform: translate3d(0, 0, 0);
+ }
+ 
+ #trashbox .stripe h1 {
+     font-size: 40px;
+ }
+ 
+ #trashbox .stripe h2 {
+     font-size: 26px;
+ }
+ 
+ #trashbox .stripe h3 {
+     font-size: 20px;
+ }
+ 
+ #trashbox .stripe .column > p {
+     font-size: 16px;
+     line-height: 1.6;
+     margin: 1em 0em;
+ }
+ 
+ #trashbox .stripe .grid .row {
+     margin: 2rem 0rem;
+ }
+ 
+ #trashbox .stripe .icon.header .icon.image {
+     height: 65px;
+     margin-bottom: 20px;
+ }
+ 
+ #trashbox .stripe .icon.header i.icon {
+     font-size: 2em;
+ }
+ 
+ #trashbox .stripe .ui.vertical.divider {
+     font-size: 1rem;
+ }
+ /* Main */
+ 
+ #trashbox .stripe.main .grid .row {
+     margin: 0rem;
+ }
+ 
+ #trashbox .main.segment .info {
+     width: 10%;
+     /*            color: #4183C4;*/
+     color: #ff6600;
+     vertical-align: middle;
+     box-sizing: border-box;
+     font-family: 'Jeju Gothic', sans-serif !important;
+     font-size: 12px;
+ }
+ 
+ #trashbox .main.segment .info .icon {
+     color: #aaa;
+ }
+ 
+ #trashbox .main.segment .content {
+     /*display: inline-block;*/
+     max-width: 80%;
+     white-space: nowrap;
+ }
+ 
+ #trashbox .main.segment .ui.list .list>.item .header, .ui.list>.item .header {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     font-weight: normal;
+     font-family: 'Jeju Gothic', sans-serif !important;
+/*      font-size: 12px; */
+     color: rgb(68, 68, 68);
+ }
+ 
+ #trashbox .main.segment .content .header a {
+     color: #444444;
+ }
+ 
+ #trashbox .main.segment .content .header a:hover {
+     font-weight: bold;
+     color: #4183C4;
+ }
+ 
+  /* Article  */
+ 
+
+ 
+ #trashbox .stripe.article .grid .row {
+     margin: 0rem;
+ }
+ 
+/* #trashbox .article.details.segment .article.body img { */
+/*      display: block; */
+/*      height: auto; */
+/*      width: 100%; */
+/*  } */
+ 
+ 
+.align-center > img {
+	
+	position: relative;
+    vertical-align: middle;
+    max-width: 100%;
+    background-color: transparent;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.align-left > img {
+	
+	position: relative;
+    vertical-align: middle;
+    max-width: 100%;
+    background-color: transparent;
+    float: left;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
+
+.align-right > img {
+	
+	position: relative;
+    vertical-align: middle;
+    max-width: 100%;
+    background-color: transparent;
+    float: right;
+    margin-right: 1em;
+    margin-bottom: 1em;
+}
+
+
+
+
+
+ 
+/*  #trashbox .stripe.article .selectable.table { */
+/*      cursor: pointer; */
+/*  } */
+
+
+#trashbox .stripe.article a.author {
+	cursor: pointer;
+}
+
+#trashbox .stripe.article a.author:hover {
+	color: #1E70BF;
+}
+
+#trashbox .stripe.article .comments {
+	text-align: left;
+    max-width: 100%;
+    margin: auto;
+
+}
+
+
+#trashbox .stripe.article .comments .actions {
+	opacity: 1;
+    position: inherit;
+
+}
+
+#trashbox .stripe.article .pagination {
+	text-align: center;
+}
+
+
+#trashbox .stripe.article p.info {
+    margin: 0;
+    padding: 8px 12px 8px 15px;
+    background: #f6f6f6;
+    border: 1px solid #ddd;
+    border-radius: 0 0 .28571429rem .28571429rem ;
+
+}
+
+#trashbox .stripe.article p.info:after {
+    content: "";
+    display: block;
+    clear: both
+}
+
+#trashbox .stripe.article .my.header  {
+    margin: 0 0 0 0;
+    padding: 0.7em 0.7em 0.7em 0.7em;
+/*     font-size: 18px; */
+    line-height: 26px;
+/*     overflow: hidden; */
+/*     white-space: nowrap; */
+/*     text-overflow: ellipsis; */
+    color: #FFFFFF;
+    font-size: 13px;
+    background-color: #4D4D4D;
+    word-wrap: break-word;
+    border-radius: .28571429rem .28571429rem 0 0;
+    
+/*     font-family: "Jeju Gothic"; */
+/*     font-size: medium; */
+/*     font-weight: normal; */
+
+}
+
+#trashbox .stripe.article p.info .author {
+/*     float: left; */
+    text-decoration: none;
+    color: #666;
+    font-weight: bold
+}
+
+#trashbox .stripe.article p.info .author:hover {
+	color:#4183C4;
+}
+
+#trashbox .stripe.article p.info .sum {
+    float: right;
+    color: #666;
+    font-size: .95em
+}
+
+#trashbox .stripe.article  p.info .sum .vote,
+#trashbox .stripe.article  p.info .sum .date {
+    border-left: 1px solid #ccc;
+    padding: 0 0 0 10px;
+    margin: 0 0 0 6px
+}
+
+#trashbox .stripe.article .article.body {
+	text-align: left;
+}
+
+#trashbox .stripe.article .article.body p:not(.align-center):not(.align-right){
+	text-align: left;
+}
+
+ #trashbox .stripe.article .table .title a {
+ 	color: #444444;
+ }
+ 
+ #trashbox .stripe.article .table .title a:hover {
+ 	font-weight: bold;
+    color: #4183C4;
+ }
+
+ 
+ #trashbox .stripe.article .table .no {
+ 	min-width: 50px;
+ 	text-align: center;
+ }
+ 
+ #trashbox .stripe.article .table .title {
+ 	min-width: 50px;
+    word-wrap: break-word;
+    max-width: 200px;
+ }
+ 
+ #trashbox .stripe.article .table .author {
+ 	min-width: 70px;
+ 	white-space: nowrap;
+ }
+ 
+ #trashbox .stripe.article .table .hit {
+ 	min-width: 50px;
+ 	text-align: center;
+ }
+ 
+ #trashbox .stripe.article .table .recommend {
+ 	min-width: 50px;
+ 	text-align: center;
+ }
+ 
+ #trashbox .stripe.article .table .date {
+ 	min-width: 100px;
+ 	text-align: center;
+ }
+ 
+ #trashbox .stripe.article .table .small.info {
+    color: #999;
+    font-size: 11px;
+ 	display: none !important;
+ } 
+ 
+ #trashbox .stripe.article .table .small.info > span {
+     display: inline-block;
+ }
+ 
+#trashbox .stripe.article .table .small.info > span.left.solid {
+    margin: 7px 0 0 7px;
+    padding-left: 9px;
+    border-left: 1px solid #DDD;
+}
+
+#trashbox .stripe.article .table .small.info b {
+    margin-left: 5px;
+}
+
+#trashbox .stripe.article .table .comment.num {
+    margin-left: 5px;
+    color: #FF6600;
+}
+
+ 
+ #trashbox .stripe.article .segment {
+ 	text-align: center;
+/*  	min-width: 329px; */
+ 	word-wrap:break-word;
+ }
+ 
+ 
+/*  #trashbox .main.segment .info { */
+/*      width: 10%; */
+/*                 color: #4183C4; */
+/*      color: #ff6600; */
+/*      vertical-align: middle; */
+/*      box-sizing: border-box; */
+/*      font-family: Gulim; */
+/*      font-size: 12px; */
+/*  } */
+ 
+/*  #trashbox .main.segment .info .icon { */
+/*      color: #aaa; */
+/*  } */
+ 
+/*  #trashbox .main.segment .content { */
+/*      display: inline-block; */
+/*      max-width: 80%; */
+/*      white-space: nowrap; */
+/*  } */
+ 
+/*  #trashbox .main.segment .content .header { */
+/*      overflow: hidden; */
+/*      text-overflow: ellipsis; */
+/*      font-weight: normal; */
+/*      font-family: Gulim; */
+/*      font-size: 12px; */
+/*      color: rgb(68, 68, 68); */
+/*  } */
+ 
+/*  #trashbox .main.segment .content .header a { */
+/*      color: #444444; */
+/*  } */
+ 
+/*  #trashbox .main.segment .content .header a:hover { */
+/*      font-weight: bold; */
+/*      color: #4183C4; */
+/*  } */
+ 
+ 
+ /*--------------
+     Alternate
+ ---------------*/
+ 
+ #trashbox .alternate.stripe {
+     padding-top: 10em;
+     background-color: #F2F3F5;
+ }
+ 
+ #trashbox .alternate.stripe .contents {
+     text-align: left;
+ }
+ 
+ #trashbox .alternate.stripe .contents .accordion {
+     margin-left: auto;
+     margin-right: auto;
+ }
+ /* Email */
+ 
+ #trashbox .email.stripe {
+     padding: 5em 0em;
+ }
+ 
+ #example.index .email.stripe p {
+     margin: -0.5em 0em 1em;
+ }
+ 
+ #trashbox .email.stripe .form {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+ }
+ 
+ #trashbox .email.stripe .input {
+     max-width: 450px;
+ }
+ 
+ #trashbox .email.stripe .submit.button {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ /* Sign-up */
+ 
+ #trashbox .signup.stripe {
+     padding: 5em 0em;
+ }
+ 
+ #trashbox .signup.stripe .form {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+ }
+ 
+ #trashbox .signup.stripe .form h2 {
+     color: #4D4D4D;
+ }
+ 
+ #trashbox .signup.stripe .form .field>label {
+     font-weight: normal;
+     font-size: 16px;
+ }
+ 
+ #trashbox .signup.stripe .input {
+     max-width: 450px;
+ }
+ 
+ #trashbox .signup.stripe .submit.button {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ /* login */
+ 
+ #trashbox .login.stripe {
+     padding: 10em 0em;
+ }
+ 
+ #trashbox .login.stripe .form {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+ }
+ 
+ #trashbox .login.stripe .form h2 {
+     color: #4D4D4D;
+ }
+ 
+ #trashbox .login.stripe .form .field>label {
+     font-weight: normal;
+     font-size: 16px;
+ }
+ 
+ #trashbox .login.stripe .input {
+     max-width: 450px;
+ }
+ 
+ #trashbox .login.stripe .submit.button {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ 
+ /* UserInfo */
+ 
+ #trashbox .user.info.stripe {
+     padding: 5em 0em;
+ }
+ 
+ #trashbox .user.info.stripe .segment {
+     max-width: 500px;
+     margin-left: auto;
+     margin-right: auto;
+    
+ }
+ 
+ #trashbox .user.info.stripe .table .my.header {
+ 	 background-color: #F2F3F5!important;
+ 	 font-weight: bold;
+ }
+ 
+ #trashbox .user.info.stripe .table .image{
+ 	 margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ 
+ #trashbox .user.info.stripe h2 {
+     max-width: 500px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+     color: #4D4D4D;
+ }
+ 
+ #trashbox .user.info.stripe .form .field>label {
+     font-weight: normal;
+     font-size: 16px;
+ }
+ 
+ #trashbox .user.info.stripe .input {
+     max-width: 450px;
+ }
+ 
+ #trashbox .user.info.stripe .buttons {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ /* ModifyUserInfo */
+ 
+ #trashbox .modify.user.info.stripe {
+     padding: 10em 0em;
+ }
+
+ #trashbox .modify.user.info.stripe h2 {
+     max-width: 500px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+     color: #4D4D4D;
+ }
+  
+ #trashbox .modify.user.info.stripe .form {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+ }
+ 
+ #trashbox .modify.user.info.stripe .form h2 {
+     color: #4D4D4D;
+ }
+ 
+ #trashbox .modify.user.info.stripe .form .field>label {
+     font-weight: normal;
+     font-size: 16px;
+ }
+ 
+ #trashbox .modify.user.info.stripe .input {
+     max-width: 450px;
+ }
+ 
+ #trashbox .modify.user.info.stripe .submit.button {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ /* ModifyUserPassword */
+ 
+ #trashbox .modify.user.password.stripe {
+     padding: 10em 0em;
+ }
+ 
+ #trashbox .modify.user.password.stripe .form {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+ }
+ 
+ #trashbox .modify.user.password.stripe .form h2 {
+     color: #4D4D4D;
+ }
+ 
+ #trashbox .modify.user.password.stripe .form .field>label {
+     font-weight: normal;
+     font-size: 16px;
+ }
+ 
+ #trashbox .modify.user.password.stripe .input {
+     max-width: 450px;
+ }
+ 
+ #trashbox .modify.user.password.stripe .submit.button {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ /* LoginSessionInfo */
+ 
+ #trashbox .login.session.info.stripe {
+     padding: 10em 0em;
+ }
+ 
+ #trashbox .login.session.info.stripe .segment {
+     max-width: 500px;
+     margin-left: auto;
+     margin-right: auto;
+    
+ }
+ 
+ #trashbox .login.session.info.stripe .table .my.header {
+ 	 background-color: #F2F3F5!important;
+ 	 font-weight: bold;
+ }
+ 
+ #trashbox .login.session.info.stripe .table .image{
+ 	 margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ 
+
+ #trashbox .login.session.info.stripe h2 {
+     max-width: 500px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+     color: #4D4D4D;
+ }
+ 
+ #trashbox .login.session.info.stripe .form .field>label {
+     font-weight: normal;
+     font-size: 16px;
+ }
+ 
+ #trashbox .login.session.info.stripe .input {
+     max-width: 450px;
+ }
+ 
+ #trashbox .login.session.info.stripe .buttons {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ /* User Leave */
+ 
+ #trashbox .user.leave.stripe {
+     padding: 10em 0em;
+ }
+
+#trashbox .user.leave.stripe .segment {
+     max-width: 750px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+ } 
+
+ #trashbox .user.leave.stripe h2 {
+     max-width: 750px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+     color: #4D4D4D;
+ }
+
+ 
+  
+ #trashbox .user.leave.stripe .form:not(#leave-form) {
+     max-width: 450px; 
+     margin-left: auto; 
+     margin-right: auto;
+     text-align: left;
+ }
+ 
+ #trashbox .user.leave.stripe .form h2 {
+     color: #4D4D4D;
+ }
+ 
+ #trashbox .user.leave.stripe .form .field>label {
+     font-weight: normal;
+     font-size: 16px;
+ }
+ 
+ #trashbox .user.leave.stripe .input {
+     max-width: 450px;
+ }
+ 
+ #trashbox .user.leave.stripe .submit.button {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+/* ResendAuthMail */
+ 
+ #trashbox .resend.auth.mail.stripe {
+     padding: 10em 0em;
+     min-height: 700px;
+ }
+
+ #trashbox .resend.auth.mail.stripe h2 {
+     max-width: 500px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+     color: #4D4D4D;
+ }
+  
+ #trashbox .resend.auth.mail.stripe .form {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+ }
+ 
+ #trashbox .resend.auth.mail.stripe .form h2 {
+     color: #4D4D4D;
+ }
+ 
+ #trashbox .resend.auth.mail.stripe .form .field>label {
+     font-weight: normal;
+     font-size: 16px;
+ }
+ 
+ #trashbox .resend.auth.mail.stripe .input {
+     max-width: 450px;
+ }
+ 
+ #trashbox .resend.auth.mail.stripe .submit.button {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ /* FindUserAccount */
+ 
+ #trashbox .find.user.account.stripe {
+     padding: 10em 0em;
+     min-height: 700px;
+ }
+
+ #trashbox .find.user.account.stripe h2 {
+     max-width: 500px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+     color: #4D4D4D;
+ }
+  
+ #trashbox .find.user.account.stripe .form {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+     text-align: left;
+ }
+ 
+ #trashbox .find.user.account.stripe .form h2 {
+     color: #4D4D4D;
+ }
+ 
+ #trashbox .find.user.account.stripe .form .field>label {
+     font-weight: normal;
+     font-size: 16px;
+ }
+ 
+ #trashbox .find.user.account.stripe .input {
+     max-width: 450px;
+ }
+ 
+ #trashbox .find.user.account.stripe .submit.button {
+     max-width: 450px;
+     margin-left: auto;
+     margin-right: auto;
+ }
+ 
+ 
+ 
+ /*----------------- 
+        intro      
+ -----------------*/
+ 
+ #trashbox .intro.segment h1 + p {
+     font-size: 22px;
+ }
+ /*******************************
+            Following
+ *******************************/
+ /*---------------------
+     Large Following 
+ ---------------------*/
+ 
+ #trashbox .following.bar {
+     position: fixed;
+     top: 0px;
+     z-index: 900;
+     left: 0%;
+     padding: 2em 0em;
+     width: 100%;
+     box-shadow: 0px 0px 0px 0px transparent;
+     transition: padding 0.5s ease, background 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
+ }
+ 
+/*  #trashbox .following.bar .menu .item { */
+/*      font-weight: bold; */
+    
+/*  } */
+ 
+ #trashbox .following.bar .inverted.menu {
+     background-color: transparent;
+ }
+ 
+ #trashbox .following.bar .inverted.menu .item:before {
+     width: 0px;
+ }
+ 
+ #trashbox .dark.following.bar {
+     padding: 0em 0em;
+     background-color: #1B1C1D;
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+ }
+ 
+ #trashbox .dark.following.bar .inverted.menu .item:before {
+     width: 1px;
+ }
+ /*---------------------
+     Small Following 
+ ---------------------*/
+ 
+ .ui.inverted.fixed.menu {
+     box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+ }
+ /*******************************
+         User Info Box
+ *******************************/
+ 
+ #user-info-box {
+     padding-top: 5em;
+     height: 300px;
+     background-image: url(../assets/images/SplitShire-0129-1800x1200-970x500.jpg);
+     background-size: cover;
+     background-position: right;
+     text-align: center;
+     border-style: solid;
+     border-color: #1B1C1D;
+ }
+ 
+ #user-info-box:after {
+     content: '';
+     position: absolute;
+     top: 0;
+     left: 0;
+     right: 0;
+     bottom: 0;
+     background-color: hsla(0, 0%, 0%, 0.9);
+ }
+ 
+ #user-info-box .ui.tiny.circular.image > img {
+     position: relative;
+     z-index: 2;
+     width: 80px;
+     height: 80px;
+     border-style: solid;
+     border-width: 2px;
+ }
+ 
+ #user-info-box .ui.center.aligned.container {
+     position: relative;
+     z-index: 2;
+     margin-top: 2em;
+ }
+ 
+ /*******************************
+         Pagination
+ *******************************/ 
+/*  .pagination a.button { */
+/*      box-shadow: 0 0 0 0 !important; */
+/*  } */
+ 
+/*  .pagination a.button:hover { */
+/*      box-shadow: 0 0 0 1px rgba(34,36,38,.15) !important; */
+/*  } */
+ 
+/*  .pagination a.button:focus { */
+/*      box-shadow: 0 0 0 1px rgba(34,36,38,.15) !important; */
+/*  } */
+ 
+ 
+.pagination > .ui.basic.button,.ui.basic.buttons .button {
+    box-shadow: none!important;
+} 
+
+.pagination  .ui.compact.icon.basic.button.button:hover {
+    background: rgba(0,0,0,.05)!important;
+}
+    
+ 
+#browser-image {
+	width: 1.18em;
+    height: 1.18em;
+} 
+
+
+ 
+ /*******************************
+         Sweet Alert Override
+ *******************************/ 
+ .sweet-overlay {
+   background-color: rgba(0,0,0,.85);
+ }    
+ 
+@media only screen and (min-width: 320px) {
+	#trashbox .stripe {
+		min-height: 640px;
+	}
+}
+
+@media only screen and (max-width: 320px) {
+
+	#trashbox .stripe.article p.info .sum {
+	   font-size: 0.65em;
+	}
+}
+
+@media only screen and (min-width: 1440px) {
+	#trashbox .stripe {
+		min-height: 1045px;
+	}
+} 
+
+@media only screen and (min-width: 2560px) {
+	#trashbox .stripe {
+		min-height: 1858px;
+	}
+} 
+ 
+ 
+ 
+ @media only screen and (max-width: 375px) {
+     .masthead h1.ui.header {
+         color: white;
+         font-size: 3em;
+         margin-top: 2em;
+     }
+     
+     #trashbox .stripe.article .table .small.info {
+         font-size: 10px;
+     }  
+ }
+ 
+ @media only screen and (max-width: 400px) {
+     #trashbox .masthead.segment h1 {
+         font-size: 1.75em !important;
+     }
+     
+     
+ }
+ 
+ @media only screen and (max-width: 500px) {   
+     #trashbox .stripe.article .table tr > th.title,
+     #trashbox .stripe.article .table tr > th.author,
+     #trashbox .stripe.article .table td.author,
+     #trashbox .stripe.article .table .date {
+         display: none !important;
+     }
+     
+     #trashbox .stripe.article .table .title {
+         max-width: 296px;
+         font-weight: bold;
+     }
+
+   
+      
+     #trashbox .stripe.article .table .small.info {
+         display: block !important;
+     } 
+     
+     #trashbox .stripe.article a.author {
+     	 margin-bottom: 0.5em;
+     }
+     
+     .se2_conversion_mode {
+     	 display: none!important;
+     }
+ 
+ }
+ 
+ @media only screen and (max-width: 600px) {
+     #trashbox .stripe {
+         padding: 4em 0em;
+     }
+     /*
+     #trashbox .masthead:before {
+         display: none;
+     }
+     */
+     #trashbox .masthead .container {
+         padding: 6rem 0rem;
+     }
+     #trashbox .masthead.segment h1 {
+         font-size: 2.25em;
+     }
+     #trashbox .masthead.bg .button {
+         display: none;
+     }
+ }
+ 
+ @media only screen and (max-width: 650px) {
+     #trashbox .stripe h1 {
+         font-size: 32px;
+     }
+     #trashbox .following.bar {
+         display: none;
+     }
+     #trashbox .stripe.article .table .no, 
+     #trashbox .stripe.article .table .hit, 
+     #trashbox .stripe.article .table .recommend {
+         display: none !important;
+     }
+ }
+ 
+ @media only screen and (min-width: 650px) {
+     #trashbox .fixed.inverted.menu {
+         display: none;
+     }
+ }
+ 
+ @media only screen and (max-width: 767px) {
+     #trashbox .stripe .container .column {
+         padding-left: 1rem !important;
+         padding-right: 1rem !important;
+     }
+     
+     #trashbox .stripe.article .my.header  {
+      	 text-align: left;
+     }
+ }
+ 
+ @media only screen and (max-width: 788px) {
+     .masthead.segment {
+         min-height: 350px;
+     }
+     .masthead h1.ui.header {
+         color: white;
+         font-size: 4em;
+         margin-top: 1.5em;
+     }
+     .masthead h2 {
+         margin-top: 0.5em;
+         font-size: 1.5em;
+     }
+ }
+ 
+ @media only screen and (max-width: 810px) {
+     #trashbox .masthead.segment h1 > .title {
+         font-size: 1.75em;
+     }
+     #trashbox .container {
+         margin-left: 0em;
+         margin-right: 0em;
+     }
+     #trashbox .masthead .container {
+/*          margin-top: 50px; */
+         min-height: 350px;
+         height: auto;
+     }
+ }
+ 
+ @media only screen and (max-width: 1040px) {
+     .masthead h1.ui.header {
+         color: white;
+         font-size: 4em;
+     }
+ }

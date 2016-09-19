@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trashbox.dao.RecommendLogDao">
+  <resultMap type="RecommendLog" id="RecommendLogMap">
+    <id     column="no"           property="no"/>
+    <result column="user_no"      property="userNo"/>
+    <result column="article_no"   property="articleNo"/>
+  </resultMap>
+
+    <insert id="insert" parameterType="Map">
+	   INSERT INTO recommend_log (user_no, article_no) 	   
+	   VALUES (#{userNo}, #{articleNo});
+    </insert>
+  
+  	<select id="checkRecommend" parameterType="Map" resultType="java.lang.Boolean">
+	   SELECT (CASE WHEN COUNT(*) > 0 THEN 'true' ELSE 'false' END) As result  
+	   FROM recommend_log 
+	   WHERE user_no=#{userNo} AND article_no=#{articleNo};
+	</select>
+	
+</mapper>
+
+
+
+

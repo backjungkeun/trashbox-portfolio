@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+			 xmlns:beans="http://www.springframework.org/schema/beans"
+	         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+		                         http://www.springframework.org/schema/beans/spring-beans.xsd
+                                 http://www.springframework.org/schema/security
+                                 http://www.springframework.org/schema/security/spring-security.xsd">
+
+	
+<http auto-config="false" 
+      use-expressions="true" 
+      entry-point-ref="loginUrlAuthenticationEntryPoint" >
+	
+
+		<intercept-url pattern="/main" access="permitAll" />
+		<intercept-url pattern="/checkDuplicate*" access="permitAll" />
+		<intercept-url pattern="/signup" access="isAnonymous()" />
+		<intercept-url pattern="/login" access="permitAll" />
+		<intercept-url pattern="/userInfo" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/modifyUserInfo" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/user" access="hasRole('ROLE_USER')" />
+		<intercept-url pattern="/admin" access="hasRole('ROLE_ADMIN')" />
+       
+        <!-- access-denied-handler -->
+		<access-denied-handler ref="myAccessDeniedHandler" /> 
+		
+        <!-- custom-filter -->
+		<custom-filter position="FORM_LOGIN_FILTER" ref="myAuthenticationFilter" />
+		<custom-filter position="REMEMBER_ME_FILTER" ref="rememberMeFilter" />
+		<custom-filter position="LOGOUT_FILTER" ref="logoutFilter" />
+		
+        
+<!--         <form-login login-page="/login" -->
+<!--         			username-parameter="id" -->
+<!--                     password-parameter="password"     -->
+<!--                     login-processing-url="/loginProcess" -->
+<!--                     default-target-url="/main" -->
+<!--                     authentication-success-handler-ref="MyLoginSuccessHandler"            -->
+<!--                     authentication-failure-handler-ref="MyLoginFailureHandler" /> -->
+                    
+        <session-management>
+	       <concurrency-control max-sessions="1" error-if-maximum-exceeded="true" />
+        </session-management>
+       
+<!--         <logout delete-cookies="JSESSIONID" -->
+<!--                 invalidate-session="true" -->
+<!--                 success-handler-ref="myLogoutSuccessHandler" /> -->
+        <csrf />
+        
+        
+        
+<!--         <remember-me token-validity-seconds="1209600" -->
+<!--                      remember-me-parameter="rememberMe" -->
+<!--                      data-source-ref="dataSource"/> -->
+        
+</http>
+
+<!-- authentication-manager -->
+<authentication-manager alias="authenticationManager">
+<!--         <authentication-provider user-service-ref="myUserDetailsService"> -->
+<!--         	<password-encoder ref="bcryptEncoder" /> -->
+<!--         </authentication-provider> -->
+		<authentication-provider ref="myAuthenticationProvider" />
+        <authentication-provider ref="rememberMeAuthenticationProvider" /> 
+</authentication-manager>
+
+
+
+
+
+<!--Remember Me Service -->
+<beans:bean id="rememberMeServices" class=
+"org.springframework.security.web.authentication.rememberme.TokenBasedRememberMeServices">
+  <beans:constructor-arg  name="key" 			       value="springRocks" />
+  <beans:constructor-arg  name="userDetailsService"    ref=  "myUserDetailsService" />
+<!--   <beans:constructor-arg  name="tokenRepository"       ref=  "tokenRepository" /> -->
+  <beans:property         name="parameter"             value="rememberMe" />
+  <beans:property         name="tokenValiditySeconds"  value="1209600" />
+</beans:bean>
+
+<!-- <beans:bean id="tokenRepository" class="org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl"> -->
+<!--  <beans:property name="dataSource" ref="dataSource"/> -->
+<!-- </beans:bean> -->
+
+<beans:bean id="rememberMeAuthenticationProvider" class=
+"org.springframework.security.authentication.RememberMeAuthenticationProvider">
+  <beans:constructor-arg name="key" value="springRocks" /> 
+</beans:bean>
+
+<beans:bean id="rememberMeFilter" class=
+"org.springframework.security.web.authentication.rememberme.RememberMeAuthenticationFilter">
+  <beans:constructor-arg name="authenticationManager" ref="authenticationManager" />
+  <beans:constructor-arg name="rememberMeServices" ref="rememberMeServices" />
+</beans:bean>
+
+
+<!-- authentication-filter -->
+<beans:bean id="myAuthenticationFilter" class=
+"com.trashbox.security.MyUsernamePasswordAuthenticationFilter">
+  <beans:property name="rememberMeServices" ref="rememberMeServices" />  
+  <beans:property name="authenticationManager" ref="authenticationManager" />
+  <beans:property name="authenticationFailureHandler" ref="myLoginFailureHandler" />
+  <beans:property name="authenticationSuccessHandler" ref="myLoginSuccessHandler" />
+  <beans:property name="filterProcessesUrl" value="/loginProcess" />
+  <beans:property name="usernameParameter" value="id" />
+  <beans:property name="passwordParameter" value="password" />
+</beans:bean>
+
+
+<!-- loginUrl-authentication-entryPoint -->
+<beans:bean id="loginUrlAuthenticationEntryPoint" class=
+"org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+ <beans:constructor-arg name="loginFormUrl" value="/login" />
+</beans:bean>
+
+
+
+
+<!-- logout-Filter -->
+<beans:bean id="logoutFilter" class=
+"org.springframework.security.web.authentication.logout.LogoutFilter">
+  <beans:constructor-arg name="logoutSuccessHandler" ref="myLogoutSuccessHandler" />
+    <beans:constructor-arg name="handlers">
+      <beans:list>
+        <beans:bean class=
+        "org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
+        <beans:bean class=
+        "org.springframework.security.web.authentication.logout.CookieClearingLogoutHandler">
+          <beans:constructor-arg name="cookiesToClear" value="remember-me" />
+        </beans:bean>	
+      </beans:list>
+    </beans:constructor-arg>
+  <beans:property name="filterProcessesUrl" value="/logout" />
+</beans:bean>
+
+
+<!-- my-user-details-service -->
+<beans:bean id="myUserDetailsService" class="com.trashbox.security.MyUserDetailsService" />
+
+
+<!-- my-handlers -->
+<beans:bean id="myLoginSuccessHandler" 
+	class="com.trashbox.security.MyLoginSuccessHandler" />
+
+<beans:bean id="myLoginFailureHandler" 
+	class="com.trashbox.security.MyLoginFailureHandler" />
+
+<beans:bean id="myLogoutSuccessHandler" 
+	class="com.trashbox.security.MyLogoutSuccessHandler" />
+
+<beans:bean id="myAccessDeniedHandler" 
+	class="com.trashbox.security.MyAccessDeniedHandler" />		
+
+
+<!-- password-encoder -->
+<beans:bean id="bcryptEncoder"
+	class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />
+	
+<!-- my-key-based-persistence-token-service -->
+<beans:bean id="myKeyBasedPersistenceTokenService" 
+	class="com.trashbox.security.MyKeyBasedPersistenceTokenService" />
+	
+
+<beans:bean id="myAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+	<beans:property name="userDetailsService" ref="myUserDetailsService" />
+	<beans:property name="passwordEncoder" ref="bcryptEncoder" />
+	<beans:property name="preAuthenticationChecks" ref="myUserDetailsChecker" />
+	<beans:property name="postAuthenticationChecks" >
+       <beans:bean class="org.springframework.security.authentication.AccountStatusUserDetailsChecker"></beans:bean>
+	</beans:property>
+</beans:bean>
+
+
+<beans:bean id="myUserDetailsChecker" class="com.trashbox.security.MyUserDetailsChecker"></beans:bean>
+
+</beans:beans>
+

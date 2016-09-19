@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.trashbox.dao.MessageDao">
+  <resultMap type="Message" id="MessageMap">
+    <id 	column="no"                property="no"/>
+    <result column="sender_no"         property="senderNo"/>
+    <result column="receiver_no"       property="receiverNo"/>
+    <result column="content"           property="content"/>
+    <result column="registration_date" property="registrationDate"/>
+    <result column="checked"           property="checked"/>
+    <result column="saved"             property="saved"/>    
+    <result column="remove_sender"     property="removeSender"/>
+    <result column="remove_receiver"   property="removeReceiver"/>
+  </resultMap>
+  
+  <insert id="send" parameterType="Message">
+	   INSERT INTO message (sender_no, receiver_no, content, registration_date, checked, saved, remove_sender, remove_receiver) 
+	   VALUES (#{senderNo}, #{receiverNo}, #{content}, now(), false, false, false, false); 
+  </insert>
+  
+  <select id="selectMessageList" parameterType="Map" resultMap="MessageMap">
+       SELECT message.no, 
+              message.sender_no, 
+              message.receiver_no, 
+              message.content, 
+              message.registration_date, 
+              message.checked,
+              message.saved,
+              message.remove_sender,
+              message.remove_receiver 
+       
+       FROM message 
+       
+       <where>
+         <choose>
+           <when test="query == 'receive'">
+             receiver_no=#{no} AND remove_receiver=false AND saved=false
+           </when>
+           <when test="query == 'send'">
+             sender_no=#{no} AND remove_sender=false
+           </when>
+           <when test="query == 'save'">
+              receiver_no=#{no} AND remove_receiver=false AND saved=true
+           </when>
+         </choose>
+      </where>
+
+      ORDER BY message.no DESC;
+  </select>
+  
+  
+  <update id="setMessageChecked" parameterType="int">
+     UPDATE message SET checked=true WHERE no=#{no};
+  </update>
+  
+  <update id="setMessageSaved" parameterType="int">
+     UPDATE message SET saved=true WHERE no=#{no};
+  </update>
+  
+  
+<!--   <delete id="deleteMessages" parameterType="java.util.List"> -->
+    
+<!-- 	  DELETE FROM message  -->
+<!-- 	  WHERE no IN -->
+	  
+<!-- 	  <foreach item="item" index="index" collection="list"  open="(" separator="," close=")"> -->
+<!-- 	    #{item} -->
+<!-- 	  </foreach> -->
+<!-- 	; -->
+	
+<!--   </delete> -->
+  
+  <delete id="deleteMessage" parameterType="int">
+    
+	  DELETE FROM message 
+	  WHERE no=#{no};
+	
+  </delete>
+  
+  
+  <select id="selectMessages" parameterType="java.util.List" resultMap="MessageMap">
+       SELECT message.no, 
+              message.sender_no, 
+              message.receiver_no, 
+              message.content, 
+              message.registration_date, 
+              message.checked,
+              message.saved,
+              message.remove_sender,
+              message.remove_receiver 
+       
+       FROM message 
+       
+       WHERE no IN
+       
+       <foreach item="item" index="index" collection="list"  open="(" separator="," close=")">
+	    #{item}
+	   </foreach>
+
+      ORDER BY message.no DESC;
+  </select>
+  
+  
+  <update id="updateDeleteFlag" parameterType="Map">
+     
+      UPDATE message 
+          
+      <set>
+         <choose>
+           <when test="query == 'receive'">
+             remove_receiver=true
+           </when>
+           <when test="query == 'send'">
+             remove_sender=true 
+           </when>
+         </choose>
+      </set>
+      
+      WHERE no=#{no};
+      
+  </update>
+  
+  
+</mapper>
+
+
+
+

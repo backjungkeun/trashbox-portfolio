@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.trashbox.dao.BoardTypeDao">
+  
+  <resultMap type="BoardType" id="BoardTypeMap">
+    <id 	column="no" property="no"/>
+    <result column="name" property="name"/>
+    <result column="ko_name" property="koName"/>
+    <result column="permission_no" property="permissionNo"/>
+  </resultMap>
+
+
+  <select id="selectBoardType" parameterType="Map" resultMap="BoardTypeMap">
+     SELECT board_type.no, 
+            board_type.name,
+            board_type.ko_name,
+            board_type.permission_no
+       
+     FROM board_type 
+     
+     <where>  
+       <if test="boardTypeName != null">
+         board_type.name=#{boardTypeName}
+       </if>
+       
+       <if test="boardNo != null">
+         board_type.no=#{boardNo}
+       </if>
+     </where>
+
+<!--      WHERE board_type.name=#{boardTypeName}; -->
+   
+  </select>
+  
+  <select id="selectBoardTypeList" resultMap="BoardTypeMap">
+    SELECT board_type.no,
+           board_type.name,
+           board_type.ko_name,
+           board_type.permission_no
+    
+    FROM board_type;
+  </select>
+  
+
+</mapper>
+
+
+
+

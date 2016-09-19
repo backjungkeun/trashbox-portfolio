@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+  <definition name="layout" template="/WEB-INF/views/tiles/layout.jsp">
+      <put-attribute name="title" expression="${title} - Trash Box" />
+      <put-attribute name="sidebar" value="/WEB-INF/views/tiles/parts/sidebar.jsp" />
+      <put-attribute name="header" value="/WEB-INF/views/tiles/parts/header.jsp" />
+      <put-attribute name="contents" value="" />
+      <put-attribute name="footer" value="/WEB-INF/views/tiles/parts/footer.jsp" />
+
+  </definition>
+  
+  <definition name="main" extends="layout">
+      <put-attribute name="contents" value="/WEB-INF/views/main.jsp" />
+      <put-attribute name="header-name" value="Main" cascade="true"/>
+
+  </definition>
+  
+  <definition name="*/*" extends="layout">
+      <put-attribute name="contents" value="/WEB-INF/views/defs/{1}/{2}.jsp" />
+      <put-attribute name="header-name" expression="${headerName}" cascade="true"/>
+<!--       <put-attribute name="script" value="/WEB-INF/views/defs/js/{2}_js.jsp" /> -->
+  </definition>
+ 
+  
+</tiles-definitions>

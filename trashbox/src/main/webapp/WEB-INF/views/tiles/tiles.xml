@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+  <definition name="layout" template="/WEB-INF/views/tiles/layout.jsp">
+      <put-attribute name="title"  value=""/>
+      <put-attribute name="sidebar" value="/WEB-INF/views/tiles/parts/sidebar.jsp" />
+      <put-attribute name="header" value="/WEB-INF/views/tiles/parts/header.jsp" />
+      <put-attribute name="contents" value="" />
+      <put-attribute name="footer" value="/WEB-INF/views/tiles/parts/footer.jsp" />
+      
+      <put-attribute name="modal" value="/WEB-INF/views/tiles/parts/modal.jsp" />
+      
+      <put-attribute name="header-name" value="" expression="" cascade="true"/>
+
+  </definition>
+  
+  <definition name="main" extends="layout">
+      <put-attribute name="title" value="Main - Trash Box" />
+      <put-attribute name="contents" value="/WEB-INF/views/main.jsp" />
+      <put-attribute name="header-name" value="Main" cascade="true"/>
+  </definition>
+  
+<!--    <definition name="callback" extends="layout"> -->
+<!--       <put-attribute name="title" value="callback" /> -->
+<!--       <put-attribute name="contents" value="/WEB-INF/views/callback.jsp" /> -->
+<!--       <put-attribute name="header-name" value="Main" cascade="true"/> -->
+<!--   </definition> -->
+  
+
+  
+  <definition name="board/*/*/*" extends="layout">
+      <put-attribute name="contents" value="/WEB-INF/views/board/{1}.jsp" />
+      <put-attribute name="header-name" value="{2}" cascade="true"/>
+      <put-attribute name="title" value="{3} - Trash Box" />
+  </definition>
+  
+  <definition name="user/*/*" extends="layout">
+      <put-attribute name="contents" value="/WEB-INF/views/user/{1}.jsp" />
+      <put-attribute name="header-name" value="{2}" cascade="true"/>
+      <put-attribute name="title" value="{1} - Trash Box" />
+  </definition>
+  
+
+  
+  
+ 
+</tiles-definitions>

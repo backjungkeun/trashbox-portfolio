@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.trashbox.dao.CommentDao">
+  <resultMap type="Comment" id="CommentMap">
+    <id 	column="no" property="no"/>
+    <result column="article_no" property="articleNo"/>
+    <result column="user_no" property="userNo"/>
+    <result column="content" property="content"/>
+    <result column="registration_date" property="registrationDate"/>
+  </resultMap>
+  
+  <resultMap type="java.util.HashMap" id="TotalCountMap" >
+    <result column="article_no" property="key"/>
+    <result column="total_count" property="value"/>
+  </resultMap>
+  
+  
+  <insert id="add" parameterType="Comment">
+	   INSERT INTO comment (article_no, user_no, content, registration_date) 
+	   VALUES (#{articleNo}, #{userNo}, #{content}, now()); 
+  </insert>
+  
+  <delete id="remove" parameterType="Comment">
+      DELETE FROM comment WHERE no=#{no};
+      
+  </delete>
+  
+  <select id="list" parameterType="Map" resultMap="CommentMap">
+      SELECT  comment.no, 
+  	          comment.article_no,
+	          comment.user_no,
+	          comment.content, 
+	          comment.registration_date
+	   
+	   FROM   comment
+       
+       LEFT OUTER JOIN user ON user.no=comment.user_no
+      	   
+	   WHERE article_no=#{articleNo}
+  
+	   ORDER BY comment.no DESC  
+	   
+	   LIMIT 10 OFFSET #{page};
+  </select>
+  
+  <select id="getTotalCommentNum" parameterType="int" resultType="int">
+	   SELECT T2.* 
+	   
+	   FROM (
+	         SELECT ifnull(MAX(@RNUM:=@RNUM+1), 0) AS RN
+	         FROM (SELECT * FROM comment WHERE article_no=#{articleNo}) AS T1, 
+	              (SELECT @RNUM:=0) AS R 
+	        ) AS T2; 
+  </select>
+  
+  <select id="selectNewComments" resultMap="CommentMap">
+       SELECT comment.no, 
+  	          comment.article_no,
+	          comment.user_no,
+	          comment.content, 
+	          comment.registration_date 
+       
+       FROM comment
+       
+       ORDER BY comment.no DESC
+       
+       LIMIT 15 OFFSET 0;
+  </select>
+  
+  
+   <select id="selectTotalCount" parameterType="list" resultMap="TotalCountMap">
+	   SELECT article_no, COUNT(*) as total_count 
+	   FROM comment 
+	   WHERE article_no in
+
+       <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+        #{item}
+       </foreach>
+    
+       GROUP BY article_no;
+	   
+  </select>
+	
+
+</mapper>
+
+
+
+

@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+#trashbox {
+	font-family: 'Hanna';
+	height: 100%;
+	padding-top: 8em;
+	padding-bottom: 5em;
+	background-image: url(../assets/images/photo-Sergei%20Zolkin.jpg);
+	background-size: cover;
+}
+
+#trashbox:after {
+	content: '';
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: hsla(0, 0%, 0%, 0.5);
+}
