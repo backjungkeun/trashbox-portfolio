@@ -21,3 +21,14 @@
  * 파일업로드 / 다운로드
  * 게시글(생성, 삭제, 업데이트, 추천)
  * 댓글 (생성, 삭제)
+ 
+
+# 개발 PLATFORM
+
+@ Server : Apache-tomcat-8.0.28
+
+@ DB : MySQL Server 5.7
+
+@ SSI : JSP, Java, javaScript, jQuery
+
+@ OS : Windows 10
